@@ -20,45 +20,49 @@ CREATE TABLE `user` (
                         CONSTRAINT `FKn82ha3ccdebhokx3a8fgdqeyy` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `brand` (
+                         `id` bigint NOT NULL AUTO_INCREMENT,
+                         `name` varchar(255) DEFAULT NULL,
+                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE Category (
-                           id INT,
-                           name VARCHAR(16),
-                           PRIMARY KEY (id)
-);
+CREATE TABLE `category` (
+                            `id` bigint NOT NULL AUTO_INCREMENT,
+                            `name` varchar(255) DEFAULT NULL,
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE Order (
-                            Id INT PRIMARY KEY,
-                            client_name VARCHAR(64),
-                            client_surname VARCHAR(64),
-                            client_email VARCHAR(64),
-                            cost DECIMAL(7,2),
-                            delivery_address VARCHAR(65),
-                            order_date DATE,
-                            status VARCHAR(65)
-);
+CREATE TABLE `product` (
+                           `id` bigint NOT NULL AUTO_INCREMENT,
+                           `create_date` datetime(6) DEFAULT NULL,
+                           `description` varchar(255) DEFAULT NULL,
+                           `logo` varchar(255) DEFAULT NULL,
+                           `price` decimal(38,2) DEFAULT NULL,
+                           `product_name` varchar(255) DEFAULT NULL,
+                           `brand_id` bigint DEFAULT NULL,
+                           `category_id` bigint DEFAULT NULL,
+                           PRIMARY KEY (`id`),
+                           KEY `FKs6cydsualtsrprvlf2bb3lcam` (`brand_id`),
+                           KEY `FK1mtsbur82frn64de7balymq9s` (`category_id`),
+                           CONSTRAINT `FK1mtsbur82frn64de7balymq9s` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+                           CONSTRAINT `FKs6cydsualtsrprvlf2bb3lcam` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE Brand (
-                       id INT PRIMARY KEY,
-                       name VARCHAR(16)
-);
+CREATE TABLE `brand_products` (
+                                  `brand_id` bigint NOT NULL,
+                                  `products_id` bigint NOT NULL,
+                                  UNIQUE KEY `UK_7eaqjxxyd4t68rexhknrw562s` (`products_id`),
+                                  KEY `FK7pusas9jj0imb18u29gf2c5dq` (`brand_id`),
+                                  CONSTRAINT `FK7pusas9jj0imb18u29gf2c5dq` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`),
+                                  CONSTRAINT `FKc71ff1i8jkjwitpl76isoep5g` FOREIGN KEY (`products_id`) REFERENCES `product` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE Product (
-                         Id INT PRIMARY KEY,
-                         product_name VARCHAR(64),
-                         description VARCHAR(128),
-                         logo VARCHAR(200),
-                         price DECIMAL(7,2),
-                         brand_id INT,
-                         category_id INT,
-                         FOREIGN KEY (category_id) REFERENCES Category (id),
-                         FOREIGN KEY (brand_id) REFERENCES Brand (id)
-);
+CREATE TABLE `category_products` (
+                                     `category_id` bigint NOT NULL,
+                                     `products_id` bigint NOT NULL,
+                                     UNIQUE KEY `UK_fdnk3mk70n1rc08vw1cj65kqw` (`products_id`),
+                                     KEY `FKqwkr0l0xbluhhkm7s0c1tg8en` (`category_id`),
+                                     CONSTRAINT `FKe9irm5a62pmolhvr468cip3v3` FOREIGN KEY (`products_id`) REFERENCES `product` (`id`),
+                                     CONSTRAINT `FKqwkr0l0xbluhhkm7s0c1tg8en` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE order_line (
-                                  order_id INT PRIMARY KEY,
-                                  product_id INT,
-                                  amount_of_product INT,
-                                  FOREIGN KEY (product_id) REFERENCES Product (id),
-                                  FOREIGN KEY (order_id) REFERENCES Order (id)
-);
