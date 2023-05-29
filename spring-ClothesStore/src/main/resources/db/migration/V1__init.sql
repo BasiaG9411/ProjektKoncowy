@@ -66,3 +66,36 @@ CREATE TABLE `category_products` (
                                      CONSTRAINT `FKqwkr0l0xbluhhkm7s0c1tg8en` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `order_line` (
+                              `id` bigint NOT NULL AUTO_INCREMENT,
+                              `price` decimal(38,2) DEFAULT NULL,
+                              `quantity` int NOT NULL,
+                              `product_id` bigint DEFAULT NULL,
+                              PRIMARY KEY (`id`),
+                              KEY `FKpf904tci8garypkvm32cqupye` (`product_id`),
+                              CONSTRAINT `FKpf904tci8garypkvm32cqupye` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `order` (
+                          `id` bigint NOT NULL AUTO_INCREMENT,
+                          `city` varchar(255) DEFAULT NULL,
+                          `country` varchar(255) DEFAULT NULL,
+                          `creation_timestamp` datetime(6) DEFAULT NULL,
+                          `postal_code` varchar(255) DEFAULT NULL,
+                          `status` varchar(255) DEFAULT NULL,
+                          `street` varchar(255) DEFAULT NULL,
+                          `sum` decimal(38,2) DEFAULT NULL,
+                          `user_id` bigint DEFAULT NULL,
+                          PRIMARY KEY (`id`),
+                          KEY `FKel9kyl84ego2otj2accfd8mr7` (`user_id`),
+                          CONSTRAINT `FKel9kyl84ego2otj2accfd8mr7` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `order_order_lines` (
+                                      `order_id` bigint NOT NULL,
+                                      `order_lines_id` bigint NOT NULL,
+                                      KEY `FK4jurtsjio2c3i6bj99ga3kjuc` (`order_lines_id`),
+                                      KEY `FKlaecm1pdvqbmsdo18a0kusqg4` (`order_id`),
+                                      CONSTRAINT `FK4jurtsjio2c3i6bj99ga3kjuc` FOREIGN KEY (`order_lines_id`) REFERENCES `order_line` (`id`),
+                                      CONSTRAINT `FKlaecm1pdvqbmsdo18a0kusqg4` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
