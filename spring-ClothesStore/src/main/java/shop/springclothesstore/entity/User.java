@@ -1,11 +1,9 @@
-package shop.springclothesstore.user;
+package shop.springclothesstore.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import shop.springclothesstore.role.Role;
-
-import java.util.List;
+import shop.springclothesstore.entity.Role;
 
 @Entity
 @Table
