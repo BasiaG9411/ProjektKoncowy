@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,8 +20,13 @@ public class OrderLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    private Product product;
+    @OneToMany (mappedBy = "orderLine")
+    private List<Product> product;
+
+    @ManyToMany (mappedBy = "orderLineList")
+    private List<Order> orders = new ArrayList<>();
+
+
     private int quantity;
     private BigDecimal price;
 }

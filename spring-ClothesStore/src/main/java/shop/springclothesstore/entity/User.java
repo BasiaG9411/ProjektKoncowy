@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table
 @Getter
@@ -19,8 +21,13 @@ public class User {
     private String street;
     private String postalCode;
     private String userImagePath;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
     private String contact;
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
 }

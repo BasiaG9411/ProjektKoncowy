@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,8 +32,14 @@ public class Order {
     private String postalCode;
 
     private BigDecimal sum;
+
     @ManyToMany
-    private List<OrderLine> orderLines;
+    @JoinTable(
+            name = "order_orderline",
+            joinColumns = { @JoinColumn(name = "order_id") },
+            inverseJoinColumns = { @JoinColumn(name = "orderline_id") }
+    )
+    private List<OrderLine> orderLineList= new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime creationTimestamp;
