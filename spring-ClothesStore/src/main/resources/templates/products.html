@@ -34,7 +34,7 @@
           <div class="card-body">
             <h5 class="card-title custom-center" th:text="${product.productName}">Product</h5>
             <a th:href="@{/products/__${product.id}__}">
-              <img th:src="@{/uploads/__${product.logo}__}" width="380" height="400"/>
+              <img th:src="@{/img/__${product.logo}__}" width="380" height="400"/>
             </a>
             <p class="card-text custom-center" style="font-size: 20px; margin-right: auto; margin-left: auto"
                th:text="${product.price} + ' zł'"></p>
