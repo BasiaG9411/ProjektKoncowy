@@ -9,9 +9,9 @@ insert into category(name) values ('Damskie');
 insert into `role` (name) values ('Użytkownik');
 insert into `role` (name) values ('Administrator');
 
-insert into product (product_name, description, price, category_id, brand_id)
+insert into product (product_name, description, logo , price, category_id, brand_id)
 values
-    ('T-Shirt', 'bawełniana koszulka' , 100 ,
+    ('T-Shirt', 'bawełniana koszulka' , 't-shirt.png' , 100 ,
     (select id from category where name='Męskie'),
     (select id from brand where name='4F'));
 
@@ -39,9 +39,9 @@ values
      (select id from category where name='Męskie'),
      (select id from brand where name='4F'));
 
-insert into product (product_name, description, price, category_id, brand_id)
+insert into product (product_name, description, logo, price, category_id, brand_id)
 values
-    ('Buty', 'klapki' , 200 ,
+    ('Buty', 'klapki' ,'klapki.png', 200 ,
      (select id from category where name='Damskie'),
      (select id from brand where name='Nike'));
 insert into product (product_name, description, price, category_id, brand_id)
