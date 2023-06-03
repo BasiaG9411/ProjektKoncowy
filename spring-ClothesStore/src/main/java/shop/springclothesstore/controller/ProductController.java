@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import shop.springclothesstore.dao.ProductDao;
+import shop.springclothesstore.dto.ProductDto;
 import shop.springclothesstore.service.ProductService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ProductController {
 
     @GetMapping
     public String products(Model model) {
-        List<ProductDao> productsFromDb = productService.getProducts();
+        List<ProductDto> productsFromDb = productService.getProducts();
         model.addAttribute("products", productsFromDb);
         return "products";
     }
