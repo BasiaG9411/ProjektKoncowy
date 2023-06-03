@@ -43,7 +43,7 @@ CREATE TABLE `order_line`
     `id`       bigint NOT NULL AUTO_INCREMENT,
     `price`    decimal(38, 2) DEFAULT NULL,
     `quantity` int    NOT NULL,
-    `order_id`  bigint         DEFAULT NULL,
+    `order_id` bigint         DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY (`order_id`),
     CONSTRAINT FOREIGN KEY (`order_id`) REFERENCES `order` (`id`)
@@ -65,14 +65,14 @@ CREATE TABLE `category`
 
 CREATE TABLE `product`
 (
-    `id`           bigint NOT NULL AUTO_INCREMENT,
-    `create_date`  datetime(6) DEFAULT NULL,
-    `description`  varchar(255)   DEFAULT NULL,
-    `logo`         varchar(255)   DEFAULT NULL,
-    `price`        decimal(38, 2) DEFAULT NULL,
-    `product_name` varchar(255)   DEFAULT NULL,
-    `brand_id`     bigint         DEFAULT NULL,
-    `category_id`  bigint         DEFAULT NULL,
+    `id`            bigint NOT NULL AUTO_INCREMENT,
+    `create_date`   datetime(6) DEFAULT NULL,
+    `description`   varchar(255)   DEFAULT NULL,
+    `logo`          varchar(255)   DEFAULT NULL,
+    `price`         decimal(38, 2) DEFAULT NULL,
+    `product_name`  varchar(255)   DEFAULT NULL,
+    `brand_id`      bigint         DEFAULT NULL,
+    `category_id`   bigint         DEFAULT NULL,
     `order_line_id` bigint         DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY (`brand_id`),
@@ -84,14 +84,15 @@ CREATE TABLE `product`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-CREATE TABLE `order_orderline` (
-                                   `order_id`    bigint         NOT NULL,
-                                   `orderline_id`  bigint         NOT NULL,
-                                   PRIMARY KEY (`order_id`,`orderline_id`),
-                                   KEY `order_id` (`order_id`),
-                                   CONSTRAINT `order_orderline_1`
-                                       FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
-                                   CONSTRAINT `order_orderline_2`
-                                       FOREIGN KEY (`orderline_id`) REFERENCES `order_line` (`id`)
+CREATE TABLE `order_orderline`
+(
+    `order_id`     bigint NOT NULL,
+    `orderline_id` bigint NOT NULL,
+    PRIMARY KEY (`order_id`, `orderline_id`),
+    KEY            `order_id` (`order_id`),
+    CONSTRAINT `order_orderline_1`
+        FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
+    CONSTRAINT `order_orderline_2`
+        FOREIGN KEY (`orderline_id`) REFERENCES `order_line` (`id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
