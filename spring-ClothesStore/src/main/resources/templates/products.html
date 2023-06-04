@@ -33,7 +33,7 @@
         <div class="card" style="width: 100%; margin-bottom: 25px;">
           <div class="card-body">
             <h5 class="card-title custom-center" th:text="${product.productName}">Product</h5>
-            <a th:href="@{/products/__${product.id}__}">
+            <a th:href="@{/products/details/__${product.id}__}">
               <img th:src="@{/uploads/__${product.logo}__}" width="380" height="400"/>
             </a>
             <p class="card-text custom-center" style="font-size: 20px; margin-right: auto; margin-left: auto"
