@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +22,8 @@
     <a class="navbar-brand">ClothesStore</a>
     <form class="d-flex" role="search">
       <button class="btn btn-outline-success" type="submit">Koszyk</button>
+      <a th:href="@{/login}" sec:authorize="isAnonymous()" class="btn btn-outline-success" type="submit">Login</a>
+      <a sec:authorize="isAuthenticated()" class="btn btn-outline-success" type="submit">Logout</a>
     </form>
   </div>
 </nav>
