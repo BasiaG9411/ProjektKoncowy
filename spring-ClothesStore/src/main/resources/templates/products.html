@@ -22,8 +22,10 @@
     <a class="navbar-brand">ClothesStore</a>
     <form class="d-flex" role="search">
       <button class="btn btn-outline-success" type="submit">Koszyk</button>
-      <a th:href="@{/login}" sec:authorize="isAnonymous()" class="btn btn-outline-success" type="submit">Login</a>
-      <a sec:authorize="isAuthenticated()" class="btn btn-outline-success" type="submit">Logout</a>
+    </form>
+    <a th:href="@{/login}" sec:authorize="!isAuthenticated()" class="btn btn-outline-success" type="submit">Login</a>
+    <form class="form-inline" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+      <button class="btn btn-outline-success" type="submit">Logout</button>
     </form>
   </div>
 </nav>

@@ -17,10 +17,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
-        http.authorizeHttpRequests(req -> req.requestMatchers("/products", "/products/**").permitAll())
+        http.authorizeHttpRequests(req -> req.requestMatchers("/products", "/products/**", "/uploads", "/uploads/**", "/favicon.ico").permitAll())
                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/products", true).permitAll());
 
-        http.logout(logout -> logout.logoutSuccessUrl("/products"));
+        http.logout(logout -> logout.logoutSuccessUrl("/products").invalidateHttpSession(true).deleteCookies("JSESSIONID"));
         return http.build();
     }
 
