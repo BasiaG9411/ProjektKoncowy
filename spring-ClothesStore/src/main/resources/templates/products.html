@@ -20,9 +20,10 @@
 <nav class="navbar custom-navbar " >
   <div class="container-fluid">
     <a class="navbar-brand">ClothesStore</a>
-    <form class="d-flex" role="search">
-      <button class="btn btn-outline-success" type="submit">Koszyk</button>
-    </form>
+    <a th:href="@{/cart}" class="btn btn-outline-success" type="submit" sec:authorize="!hasAuthority('ADMIN')">
+      Koszyk
+      <span class="badge text-bg-secondary" th:text="${cartSize}"></span>
+    </a>
     <a th:href="@{/login}" sec:authorize="!isAuthenticated()" class="btn btn-outline-success" type="submit">Login</a>
     <form class="form-inline" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
       <button class="btn btn-outline-success" type="submit">Logout</button>
@@ -42,7 +43,12 @@
             </a>
             <p class="card-text custom-center" style="font-size: 20px; margin-right: auto; margin-left: auto"
                th:text="${product.price} + ' zł'"></p>
-            <a href="#" style="width: 100%;" class="btn btn-info">Dodaj do koszyka</a>
+            <form th:action="@{/cart/add}" method="post">
+              <input type="hidden" name="productId" th:value="${product.id}"/>
+
+              <button type="submit" style="width: 100%;" class="btn btn-primary">Dodaj do koszyka</button>
+            </form>
+          </div>
           </div>
         </div>
       </div>
